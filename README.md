@@ -1,2 +1,3 @@
-# gofs
-GoFS provides simple Web UI for files stroing.
+# GoFS
+
+GoFS provides simple Web UI for files storing.
