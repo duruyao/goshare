@@ -1,3 +1,17 @@
+# Cache files for GoLand
+*.idea/
+
+# Temp files
+*old/
+tmp_*/
+*.swp
+*~
+
+# Commitizen
+node_modules/
+package.json
+package-lock.json
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
