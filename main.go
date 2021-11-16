@@ -12,7 +12,7 @@ var filePath = flag.String("f", UserHomeDir(), "handling local file path in \"/.
 
 func main() {
 	for _, arg := range os.Args[1:] {
-		if arg == "-v" || arg == "-version" {
+		if arg == "-v" || arg == "--version" {
 			fmt.Println("2021.11.16.0")
 			return
 		}
