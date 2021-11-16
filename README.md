@@ -8,7 +8,7 @@ Download **[release](https://github.com/duruyao/gofs/releases)** for your platfo
 
 ## Usage
 
-There is a demo for users of Linux OS.
+The following demo is for users of Linux OS.
 
 ```bash
 $ chmod +x GoFS-Linux-amd64
@@ -18,3 +18,11 @@ GoFS is listening on 127.0.0.1:8080 and handling /opt/ ...
 ```
 
 Access [http://127.0.0.1:8080](http://127.0.0.1:8080) in your browser.
+
+![img/browser-127.0.0.1.png](img/browser-127.0.0.1.png)
+
+Download file by browser or `curl`.
+
+```bash
+$ curl --url 'http://ip:port/path/to/file' --output './path/to/file'
+```
