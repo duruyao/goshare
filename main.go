@@ -13,7 +13,7 @@ var filePath = flag.String("f", UserHomeDir(), "handling local file path in \"/.
 func main() {
 	for _, arg := range os.Args[1:] {
 		if arg == "-v" || arg == "--version" {
-			fmt.Println("2021.11.16")
+			fmt.Println("GoFS version 2021.11.16")
 			return
 		}
 	}
