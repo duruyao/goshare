@@ -38,7 +38,7 @@ Access [http://127.0.0.1:8080](http://127.0.0.1:8080) in your browser.
 
 ![img/browser-127.0.0.1.png](img/browser-127.0.0.1.png)
 
-Using the LAN IP or WAN IP instead of `localhost` or `127.0.0.1` to share the files with your group members.
+Use the **LAN IP** or **WAN IP** instead of `localhost` or `127.0.0.1` to share the files with your group members.
 
 Download file by browser or `curl`.
 
