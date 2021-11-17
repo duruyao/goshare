@@ -4,7 +4,21 @@ GoFS provides a simple Web UI for files storing server.
 
 ## Install
 
+### Install binary
+
 Download **[release](https://github.com/duruyao/gofs/releases)** for your platform.
+
+### Compile from source
+
+**Prerequisites**: [Golang](https://golang.org/)
+
+```bash
+git clone https://github.com/duruyao/gofs.git && \
+  pushd gofs && \
+  chmod +x build.sh && \
+  ./build.sh && \
+  popd
+```
 
 ## Usage
 
