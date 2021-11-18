@@ -7,13 +7,17 @@ import (
 )
 
 // GoRunWebApp start up a file server.
-func GoRunWebApp(servAddr string, filePath string) {
+func GoRunWebApp(listenAddr string, handlePath string) {
 	mux := http.NewServeMux()
-	fileHandler := http.FileServer(http.Dir(filePath))
-	mux.Handle("/", http.StripPrefix("/", fileHandler))
+	fileHandler1 := http.FileServer(http.Dir(handlePath))
+	mux.Handle("/", http.StripPrefix("/", fileHandler1))
+
+	//fileHandler2 := http.FileServer(http.Dir(handlePath))
+	//prefix :="/"+filepath.Base(handlePath)
+	//mux.Handle(prefix, http.StripPrefix(prefix, fileHandler2))
 
 	app := http.Server{
-		Addr:              servAddr,
+		Addr:              listenAddr,
 		Handler:           mux,
 		TLSConfig:         nil,
 		ReadTimeout:       7 * time.Second,
