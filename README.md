@@ -48,7 +48,7 @@ Start up GoFS.
 sudo ./GoFS-Linux-amd64 -a 127.0.0.1:8080 -p /opt
 ```
 
-Access [http://127.0.0.1:8080](http://127.0.0.1:8080) in your browser.
+Access [http://127.0.0.1:8080/opt/](http://127.0.0.1:8080/opt/) in your browser.
 
 ![img/browser-127.0.0.1.png](img/browser-127.0.0.1.png)
 
