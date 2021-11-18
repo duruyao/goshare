@@ -13,7 +13,7 @@ var handlePath = flag.String("f", UserHomeDir(), "handling local file path in \"
 func main() {
 	for _, arg := range os.Args[1:] {
 		if arg == "-v" || arg == "--version" {
-			fmt.Println("GoFS version 2021.11.16")
+			fmt.Println("GoFS version 2021.11.18")
 			return
 		}
 	}
@@ -24,6 +24,6 @@ func main() {
 	}
 	fmt.Printf("GoFS is listening on %s and handling %s ...\n", *listenAddr, *handlePath)
 	go GoRunWebApp(*listenAddr, handleDir)
-	fmt.Printf("Access %s://%s/%s\n", "http", *listenAddr, urlPath)
+	fmt.Printf("Access or share the URL: %s://%s/%s\n", "http", *listenAddr, urlPath)
 	<-quit
 }

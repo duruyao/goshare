@@ -23,6 +23,7 @@ func UserHomeDir() string {
 	return userHomeDir
 }
 
+// ParseFromPath parses path od directory and url from an input path.
 func ParseFromPath(handlePath string) (handleDir string, urlPath string) {
 	if info, err := os.Stat(handlePath); os.IsNotExist(err) {
 		fmt.Printf("No such file or directory: %s\n", handlePath)
@@ -30,12 +31,10 @@ func ParseFromPath(handlePath string) (handleDir string, urlPath string) {
 		handlePath, _ = filepath.Abs(handlePath)
 		if info.IsDir() {
 			handleDir = handlePath
-			urlPath = ""
-			//urlPath = filepath.Base(handleDir)
+			urlPath = filepath.Base(handleDir)
 		} else {
 			handleDir = filepath.Dir(handlePath)
-			//urlPath = filepath.Base(handleDir) + "/" + filepath.Base(handlePath)
-			urlPath = filepath.Base(filepath.Base(handlePath))
+			urlPath = filepath.Base(handleDir) + "/" + filepath.Base(handlePath)
 		}
 	}
 	return handleDir, urlPath

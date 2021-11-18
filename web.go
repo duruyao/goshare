@@ -3,18 +3,19 @@ package main
 import (
 	"log"
 	"net/http"
+	"path/filepath"
 	"time"
 )
 
 // GoRunWebApp start up a file server.
-func GoRunWebApp(listenAddr string, handlePath string) {
+func GoRunWebApp(listenAddr string, handleDir string) {
 	mux := http.NewServeMux()
-	fileHandler1 := http.FileServer(http.Dir(handlePath))
-	mux.Handle("/", http.StripPrefix("/", fileHandler1))
+	//fileHandler1 := http.FileServer(http.Dir(handleDir))
+	//mux.Handle("/", http.StripPrefix("/", fileHandler1))
 
-	//fileHandler2 := http.FileServer(http.Dir(handlePath))
-	//prefix :="/"+filepath.Base(handlePath)
-	//mux.Handle(prefix, http.StripPrefix(prefix, fileHandler2))
+	fileHandler2 := http.FileServer(http.Dir(handleDir))
+	prefix := "/" + filepath.Base(handleDir) + "/"
+	mux.Handle(prefix, http.StripPrefix(prefix, fileHandler2))
 
 	app := http.Server{
 		Addr:              listenAddr,
