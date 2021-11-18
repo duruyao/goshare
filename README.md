@@ -1,6 +1,6 @@
 # GoFS
 
-GoFS provides a simple Web UI for files storing server.
+GoFS provides a simple Web UI and a transfering files service which using HTTP protocol.
 
 ## Install
 
