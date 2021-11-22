@@ -42,10 +42,20 @@ Show help guide.
 ./GoFS-Linux-amd64 -h
 ```
 
-Start up GoFS.
+Start GoFS.
 
 ```
 sudo ./GoFS-Linux-amd64 -a 127.0.0.1:8080 -p /opt
+```
+
+Press `Ctrl_Z` to stop the service in foreground.
+
+Type `jobs` to show all the jobs' status contains of **JOB_ID**.
+
+Use `fg` to start and run the service in background.
+
+```bash
+fg %JOB_ID
 ```
 
 Access [http://127.0.0.1:8080/opt/](http://127.0.0.1:8080/opt/) in your browser.
