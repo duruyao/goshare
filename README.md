@@ -54,8 +54,14 @@ Access [http://127.0.0.1:8080/opt/](http://127.0.0.1:8080/opt/) in your browser.
 
 Use the **LAN IP** or **WAN IP** instead of `localhost` or `127.0.0.1` to share the files with your group members.
 
-Download file by browser or `curl`.
+Download a file by `wget`.
 
 ```bash
-curl --url 'http://ip:port/path/to/file' --output './path/to/file'
+wget [-P 'Destination Directory'] [-O 'Destination Path'] 'http://ip:port/path/to/file'
+```
+
+Download a directory by `wget`.
+
+```bash
+wget [-P 'Destination Directory'] -r -np -nH -R 'index.html*' 'http://ip:port/path/to/dir/'
 ```
