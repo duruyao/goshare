@@ -14,8 +14,16 @@ var (
 	userHomeDir     string
 )
 
-// UserHomeDir returns the home directory of the current user, such as "/home/user" in Unix-like OS.
-func UserHomeDir() string {
+func AbsPathMust(path string) string {
+	abs, err := filepath.Abs(path)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return abs
+}
+
+// UserHomeDirMust returns the home directory of the current user, such as "/home/user" in Unix-like OS.
+func UserHomeDirMust() string {
 	userHomeDirOnce.Do(func() {
 		var err error
 		userHomeDir, err = os.UserHomeDir()
@@ -27,26 +35,26 @@ func UserHomeDir() string {
 }
 
 // ParseArgs parses some values from arguments.
-func ParseArgs() (addr string, dir string, name string, prefix string, url string, err error) {
+func ParseArgs() (addr string, dir string, filename string, prefix string, url string, err error) {
 	if ShowVersion {
 		fmt.Println(Version)
-		err = errors.New("show Version")
-	} else if info, e := os.Stat(HandlePath); os.IsNotExist(err) {
-		fmt.Printf("No such file or directory: %s\n", HandlePath)
+		err = errors.New("just show version")
+	} else if info, e := os.Stat(HandlingPath); os.IsNotExist(err) {
+		fmt.Printf("No such file or directory: %s\n", HandlingPath)
 		err = e // NOTE: set err
 	} else {
-		addr = ListenAddr // NOTE: set addr
+		addr = ListeningAddr // NOTE: set addr
 
-		HandlePath, _ = filepath.Abs(HandlePath)
+		HandlingPath, _ = filepath.Abs(HandlingPath)
 		if info.IsDir() {
-			dir = HandlePath
-			name = ""
+			dir = HandlingPath
+			filename = ""
 		} else {
-			dir = filepath.Dir(HandlePath) // NOTE: set dir
-			name = filepath.Base(HandlePath) // NOTE: set name
+			dir = filepath.Dir(HandlingPath)       // NOTE: set dir
+			filename = filepath.Base(HandlingPath) // NOTE: set filename
 		}
 
-		if UrlPrefix != UrlPrefixDefault {
+		if UrlPrefix != "" {
 			if UrlPrefix[0] == '/' {
 				UrlPrefix = UrlPrefix[1:]
 			}
@@ -58,7 +66,7 @@ func ParseArgs() (addr string, dir string, name string, prefix string, url strin
 			prefix = filepath.Base(dir) // NOTE: set prefix
 		}
 
-		url = fmt.Sprintf("%s://%s/%s/%s", "http", addr, prefix, name) // NOTE: set url
+		url = fmt.Sprintf("%s://%s/%s/%s", "http", addr, prefix, filename) // NOTE: set url
 	}
 	return
 }
