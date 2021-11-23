@@ -34,7 +34,7 @@ Type `./GoFS-Linux-amd64 -h` to show usage.
 
 ```text
 USAGE:
-    {{.AppPath}} [-h] [-v] [--url-prefix <prefix>] [-s {http, https, ftp}] [-a <address>] [-p <path>]
+    GoFS [-h] [-v] [--url-prefix <prefix>] [-s {http, https, ftp}] [-a <address>] [-p <path>]
 
 OPTIONS:
     -h, --help
@@ -44,18 +44,18 @@ OPTIONS:
     --url-prefix <prefix>
                     url prefix
     -s {http, https, ftp}, --scheme {http, https, ftp}
-                    scheme name (default: "{{.DefaultScheme}}")
+                    scheme name (default: "http")
     -a <ip:port>, --address <ip:port>
-                    listening address (default: "{{.DefaultAddr}}")
+                    listening address (default: "127.0.0.1:8080")
     -p </path/to/file>,	--path </path/to/file>
-                    handing path or directory (default: "{{.DefaultPath}}")
+                    handing path or directory (default: "$HOME")
 
 EXAMPLES:
-    {{.AppPath}} -a 10.0.13.120:8080 -p /opt/share0/releases/
-    {{.AppPath}} --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
-    {{.AppPath}} --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
-    {{.AppPath}} --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
-    {{.AppPath}} --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
+    GoFS -a 10.0.13.120:8080 -p /opt/share0/releases/
+    GoFS --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
+    GoFS --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
+    GoFS --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
+    GoFS --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
 ```
 
 Start GoFS.
