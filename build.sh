@@ -4,7 +4,8 @@
 # author: duruyao@gmail.com
 # desc:   cross compile GoFS for multi-platform
 
-releases=('GoFS-macOS-amd64 darwin amd64'
+releases=(
+  'GoFS-macOS-amd64 darwin amd64'
   'GoFS-Linux-386 linux 386'
   'GoFS-Linux-arm linux arm'
   'GoFS-Linux-amd64 linux amd64'

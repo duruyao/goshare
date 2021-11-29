@@ -2,8 +2,10 @@
 *.idea/
 
 # Temp files
-*old/
+*_old/
 tmp_*/
+releases/
+bin/
 *.swp
 *~
 
