@@ -73,7 +73,7 @@ func ShowUsage() {
 		DefaultAddr   string
 		DefaultPath   string
 	}{
-		AppPath:       AbsPathMust(os.Args[0]),
+		AppPath:       os.Args[0],
 		DefaultPath:   UserHomeDirMust(),
 		DefaultScheme: "http",
 		DefaultAddr:   "127.0.0.1:8080",
