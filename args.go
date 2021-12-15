@@ -21,7 +21,7 @@ var (
 
 const (
 	SH            = " (shorthand)"
-	VersionSerial = "GoFS Version 2021.11.18"
+	VersionSerial = "GoFS Version 2021.11.24"
 	UsageTmpl     = `
 USAGE:
     {{.AppPath}} [-h] [-v] [--url-prefix <prefix>] [-s {http, https, ftp}] [-a <address>] [-p <path>]
