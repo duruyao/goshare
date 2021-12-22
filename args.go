@@ -11,7 +11,6 @@ import (
 )
 
 var (
-	WantHelp      bool
 	WantVersion   bool
 	Scheme        string
 	UrlPrefix     string
@@ -20,11 +19,10 @@ var (
 )
 
 const (
-	SH            = " (shorthand)"
-	VersionSerial = "GoFS Version 2021.11.24"
-	UsageTmpl     = `
-USAGE:
-    {{.AppPath}} [-h] [-v] [--url-prefix <prefix>] [-s {http, https, ftp}] [-a <address>] [-p <path>]
+	SH            = ` (shorthand)`
+	VersionSerial = `GoShare Version 2021.12.22`
+	UsageTmpl     = `USAGE:
+    {{.App}} [-h] [-v] [--url-prefix <prefix>] [-s {http, ftp}] [-a <ip:port>] [-p <path>]
 
 OPTIONS:
     -h, --help
@@ -33,21 +31,25 @@ OPTIONS:
                     show version
     --url-prefix <prefix>
                     url prefix
-    -s {http, https, ftp}, --scheme {http, https, ftp}
+    -s {http, ftp}, --scheme {http, ftp}
                     scheme name (default: "{{.DefaultScheme}}")
     -a <ip:port>, --address <ip:port>
-                    listening address (default: "{{.DefaultAddr}}")
-    -p </path/to/file>,	--path </path/to/file>
-                    handing path or directory (default: "{{.DefaultPath}}")
+                    ip address and port to listen (default: "{{.DefaultAddr}}")
+    -p <path>, --path <path>
+                    path of file or directory to share (default: "{{.DefaultPath}}")
 
 EXAMPLES:
-    {{.AppPath}} -a 10.0.13.120:8080 -p /opt/share0/releases/
-    {{.AppPath}} --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
-    {{.AppPath}} --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
-    {{.AppPath}} --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
-    {{.AppPath}} --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
+    {{.App}} -a 10.0.13.120:8080 -p /opt/share0/releases/
+    {{.App}} --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
+    {{.App}} --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
+    {{.App}} --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
+    {{.App}} --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
 `
 )
+
+func WantHelp() bool {
+	return WantUsage()
+}
 
 func WantUsage() bool {
 	helpArgs := map[string]bool{
@@ -68,12 +70,12 @@ func ShowUsage() {
 	tmpl := template.Must(template.New("usage tmpl").Parse(UsageTmpl))
 
 	data := struct {
-		AppPath       string
+		App           string
 		DefaultScheme string
 		DefaultAddr   string
 		DefaultPath   string
 	}{
-		AppPath:       os.Args[0],
+		App:           os.Args[0],
 		DefaultPath:   UserHomeDirMust(),
 		DefaultScheme: "http",
 		DefaultAddr:   "127.0.0.1:8080",

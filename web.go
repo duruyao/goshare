@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// GoRunWebApp start up a file server.
+// GoRunWebApp starts files transfer service.
 func GoRunWebApp(listenAddr string, handleDir string, urlPrefix string) {
 	mux := http.NewServeMux()
 	fileHandler := http.FileServer(http.Dir(handleDir))

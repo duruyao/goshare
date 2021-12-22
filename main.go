@@ -9,7 +9,7 @@ func main() {
 	if err != nil {
 		return
 	}
-	fmt.Printf("GoFS is listening on %s and handling %s/%s ...\n", addr, dir, filename)
+	fmt.Printf("GoShare is listening on %s and handling %s/%s ...\n", addr, dir, filename)
 	go GoRunWebApp(addr, dir, prefix)
 	fmt.Printf("Access or share the URL: %s\n", url)
 	<-quit
