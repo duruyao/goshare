@@ -1,20 +1,20 @@
-# GoFS
+# GoShare
 
-GoFS provides a simple Web UI and a transfering files service which using HTTP protocol.
+GoShare provides a simple Web UI and a file transfer service which using HTTP or FTP protocol.
 
 ## Install
 
 ### Download executable
 
-Download the compiled **[release](https://github.com/duruyao/gofs/releases)** for your platform.
+Download the compiled **[release](https://github.com/duruyao/goshare/releases)** for your platform.
 
 ### Compile from source
 
 **Prerequisites**: [Golang (version >= 1.17)](https://golang.org/)
 
 ```bash
-git clone https://github.com/duruyao/gofs.git gofs && \
-  pushd gofs && \
+git clone https://github.com/duruyao/goshare.git goshare && \
+  pushd goshare && \
   chmod +x build.sh && \
   ./build.sh && \
   popd
@@ -22,19 +22,19 @@ git clone https://github.com/duruyao/gofs.git gofs && \
 
 ## Usage
 
-The following demo is for users of Linux OS.
+The following operation takes the Linux platform as an example.
 
 Add executable permissions to the current file.
 
 ```bash
-chmod +x GoFS-Linux-amd64
+chmod +x goshare
 ```
 
-Type `./GoFS-Linux-amd64 -h` to show usage.
+Type `./goshare -h` to show usage.
 
 ```text
 USAGE:
-    GoFS [-h] [-v] [--url-prefix <prefix>] [-s {http, https, ftp}] [-a <address>] [-p <path>]
+    goshare [-h] [-v] [--url-prefix <prefix>] [-s {http, ftp}] [-a <ip:port>] [-p <path>]
 
 OPTIONS:
     -h, --help
@@ -43,25 +43,25 @@ OPTIONS:
                     show version
     --url-prefix <prefix>
                     url prefix
-    -s {http, https, ftp}, --scheme {http, https, ftp}
+    -s {http, ftp}, --scheme {http, ftp}
                     scheme name (default: "http")
     -a <ip:port>, --address <ip:port>
-                    listening address (default: "127.0.0.1:8080")
+                    ip address and port to listen (default: "127.0.0.1:8080")
     -p </path/to/file>,	--path </path/to/file>
-                    handing path or directory (default: "$HOME")
+                    path of file or directory to share (default: "$HOME")
 
 EXAMPLES:
-    GoFS -a 10.0.13.120:8080 -p /opt/share0/releases/
-    GoFS --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
-    GoFS --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
-    GoFS --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
-    GoFS --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
+    goshare -a 10.0.13.120:8080 -p /opt/share0/releases/
+    goshare --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
+    goshare --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
+    goshare --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
+    goshare --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
 ```
 
-Start GoFS.
+Start GoShare.
 
 ```bash
-sudo ./GoFS-Linux-amd64 -a 127.0.0.1:8080 -p /opt
+sudo ./goshare -a 127.0.0.1:8080 -p /opt
 ```
 
 Press `Ctrl_Z` to stop the service in foreground.
