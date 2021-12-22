@@ -2,16 +2,16 @@
 
 ## date:   2021.11.16
 ## author: duruyao@gmail.com
-## desc:   cross compile GoFS for multi-platform
+## desc:   cross compile GoShare for multi-platform
 
 releases=(
-  'GoFS-macOS-amd64 darwin amd64 GoFS-macOS-amd64 gofs'
-  'GoFS-Linux-386 linux 386 GoFS-Linux-386 gofs'
-  'GoFS-Linux-arm linux arm GoFS-Linux-arm gofs'
-  'GoFS-Linux-amd64 linux amd64 GoFS-Linux-amd64 gofs'
-  'GoFS-Windows-386.exe windows 386 GoFS-Windows-386 gofs.exe'
-  'GoFS-Windows-arm.exe windows arm GoFS-Windows-arm gofs.exe'
-  'GoFS-Windows-amd64.exe windows amd64 GoFS-Windows-amd64 gofs.exe'
+  'goshare-macos-amd64 darwin amd64 GoShare-macOS-amd64 goshare'
+  'goshare-linux-386 linux 386 GoShare-Linux-386 goshare'
+  'goshare-linux-arm linux arm GoShare-Linux-arm goshare'
+  'goshare-linux-amd64 linux amd64 GoShare-Linux-amd64 goshare'
+  'goshare-windows-386.exe windows 386 GoShare-Windows-386 goshare.exe'
+  'goshare-windows-arm.exe windows arm GoShare-Windows-arm goshare.exe'
+  'goshare-windows-amd64.exe windows amd64 GoShare-Windows-amd64 goshare.exe'
 )
 
 echo "GOROOT=${GOROOT}"
@@ -20,21 +20,29 @@ GOEXEC="$(command -v go)"
 echo "GOEXEC=${GOEXEC}"
 echo
 
-releases_dir="$(pwd)/releases"
-version_id="$(date '+%Y.%m.%d')"
-if [ -n "$1" ]; then
-  version_id="$1"
+## compile goshare for current platform
+if [ -z "$1" ] || [ "$1" != "all" ]; then
+  echo "GO_ENABLED=0 ${GOEXEC} build github.com/duruyao/goshare"
+  GO_ENABLED=0 ${GOEXEC} build github.com/duruyao/goshare
+  exit
 fi
 
-mkdir -p "${releases_dir}" && rm -rf "${releases_dir}"/GoFS*
+## cross compile goshare for multi-platform
+releases_dir="${PWD}/releases"
+version_id="$(date '+%Y.%m.%d')"
+if [ -n "$2" ]; then
+  version_id="$2"
+fi
+
+mkdir -p "${releases_dir}" && rm -rf "${releases_dir:?}"/*
 
 pushd "${releases_dir}" || exit
 
 for release in "${releases[@]}"; do
   items=(${release}) ## NOTE: ( ${release} ) != ( "${release}" )
-  cmd="GO_ENABLED=0 GOOS=${items[1]} GOARCH=${items[2]} ${GOEXEC} build -o ${releases_dir}/${items[0]} github.com/duruyao/gofs"
+  cmd="GO_ENABLED=0 GOOS=${items[1]} GOARCH=${items[2]} ${GOEXEC} build -o ${releases_dir}/${items[0]} github.com/duruyao/goshare"
   echo "${cmd}"
-  GO_ENABLED=0 GOOS=${items[1]} GOARCH=${items[2]} ${GOEXEC} build -o "${releases_dir}"/"${items[0]}" github.com/duruyao/gofs
+  GO_ENABLED=0 GOOS=${items[1]} GOARCH=${items[2]} ${GOEXEC} build -o "${releases_dir}"/"${items[0]}" github.com/duruyao/goshare
   deploy_dir="${releases_dir}/${items[3]}-${version_id}-release"
 
   mkdir -p "${deploy_dir}"
