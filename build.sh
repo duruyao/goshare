@@ -29,7 +29,7 @@ fi
 
 ## cross compile goshare for multi-platform
 releases_dir="${PWD}/releases"
-version_id="$(date '+%Y.%m.%d')"
+version_id="$(TZ=UTC-8 date '+%Y.%m.%d')"
 if [ -n "$2" ]; then
   version_id="$2"
 fi
