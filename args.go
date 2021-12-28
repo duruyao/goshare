@@ -138,7 +138,7 @@ func ParseArgs() (addr string, dir string, filename string, prefix string, url s
 		filename = filepath.Base(HandlingPath) // NOTE: set filename
 	}
 
-	if UrlPrefix != "" {
+	if UrlPrefix != "" { // FIXME: support url prefix = /
 		if UrlPrefix[0] == '/' {
 			UrlPrefix = UrlPrefix[1:]
 		}
