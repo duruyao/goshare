@@ -21,35 +21,25 @@ var (
 const (
 	SH            = ` (shorthand)`
 	VersionSerial = `GoShare Version 2021.12.22`
-	UsageTmpl     = `USAGE:
-    {{.App}} [-h] [-v] [--url-prefix <prefix>] [-s {http, ftp}] [-a <ip:port>] [-p <path>]
+	UsageTmpl     = `Usage: {{.App}} [OPTIONS] PATH
 
-OPTIONS:
-    -h, --help
-                    show usage
-    -v, --version
-                    show version
-    --url-prefix <prefix>
-                    url prefix
-    -s {http, ftp}, --scheme {http, ftp}
-                    scheme name (default: "{{.DefaultScheme}}")
-    -a <ip:port>, --address <ip:port>
-                    ip address and port to listen (default: "{{.DefaultAddr}}")
-    -p <path>, --path <path>
-                    path of file or directory to share (default: "{{.DefaultPath}}")
+The tool share files or directories by HTTP or FTP protocol
 
-EXAMPLES:
-    {{.App}} -a 10.0.13.120:8080 -p /opt/share0/releases/
-    {{.App}} --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
-    {{.App}} --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
-    {{.App}} --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
-    {{.App}} --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
+Options:
+	-d, --detach				Run service in background
+    -h, --help      			Display this help message
+    --host STRING          		Host address to listen (default: '{{.DefaultAddr}}')
+    --scheme STRING				Scheme name (default: '{{.DefaultScheme}}')
+    --url-prefix STRING 		URL prefix (default: 'PATH')
+    -v, --version   			Print version information and quit
+
+Examples:
+    {{.App}} -host example.com /opt/share0/releases/
+    {{.App}} -host localhost:3927 /opt/share0/releases/
+    {{.App}} --host localhost:3927 --url-prefix /releases/ /opt/share0/releases/
+    {{.App}} --host=localhost:3927 --url-prefix=/releases/ /opt/share0/releases/
 `
 )
-
-func WantHelp() bool {
-	return WantUsage()
-}
 
 func WantUsage() bool {
 	helpArgs := map[string]bool{
@@ -59,7 +49,7 @@ func WantUsage() bool {
 		"--help": true,
 	}
 	for _, arg := range os.Args[1:] {
-		if helpArgs[arg] == true {
+		if helpArgs[arg] {
 			return true
 		}
 	}
@@ -78,7 +68,7 @@ func ShowUsage() {
 		App:           os.Args[0],
 		DefaultPath:   UserHomeDirMust(),
 		DefaultScheme: "http",
-		DefaultAddr:   "127.0.0.1:8080",
+		DefaultAddr:   "localhost:3927",
 	}
 
 	if err := tmpl.Execute(os.Stdout, data); err != nil {
