@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	"time"
 )
 
 // GoRunWebApp starts files transfer service.
@@ -16,11 +15,11 @@ func GoRunWebApp(listenAddr string, handleDir string, urlPrefix string) {
 		Addr:              listenAddr,
 		Handler:           mux,
 		TLSConfig:         nil,
-		ReadTimeout:       7 * time.Second,
-		ReadHeaderTimeout: 7 * time.Second,
-		WriteTimeout:      7 * time.Second,
-		IdleTimeout:       7 * time.Second,
-		MaxHeaderBytes:    1024 * 1024,
+		ReadTimeout:       0,
+		ReadHeaderTimeout: 0,
+		WriteTimeout:      0,
+		IdleTimeout:       0,
+		MaxHeaderBytes:    http.DefaultMaxHeaderBytes,
 		TLSNextProto:      nil,
 		ConnState:         nil,
 		ErrorLog:          log.Default(),
