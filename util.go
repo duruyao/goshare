@@ -7,6 +7,7 @@ import (
 	"sync"
 )
 
+// AbsPathMust returns the absolute path of the given path.
 func AbsPathMust(path string) string {
 	abs, err := filepath.Abs(path)
 	if err != nil {
@@ -37,7 +38,7 @@ var (
 	currentDir     string
 )
 
-// CurrentDirMust returns the current directory.
+// CurrentDirMust returns the current working directory.
 func CurrentDirMust() string {
 	currentDirOnce.Do(func() {
 		var err error
