@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-// GoRunWebApp starts files transfer service.
-func GoRunWebApp(listenAddr string, handleDir string, urlPrefix string) {
+// StartHttpFileService starts a file service using HTTP protocol.
+func StartHttpFileService(host string, dir string, prefix string) {
 	mux := http.NewServeMux()
-	fileHandler := http.FileServer(http.Dir(handleDir))
-	mux.Handle("/"+urlPrefix+"/", http.StripPrefix("/"+urlPrefix+"/", fileHandler))
+	fileHandler := http.FileServer(http.Dir(dir))
+	mux.Handle(prefix, http.StripPrefix(prefix, fileHandler))
 
-	app := http.Server{
-		Addr:              listenAddr,
+	server := http.Server{
+		Addr:              host,
 		Handler:           mux,
 		TLSConfig:         nil,
 		ReadTimeout:       0,
@@ -27,5 +27,5 @@ func GoRunWebApp(listenAddr string, handleDir string, urlPrefix string) {
 		ConnContext:       nil,
 	}
 
-	log.Fatalln(app.ListenAndServe())
+	log.Fatalln(server.ListenAndServe())
 }
