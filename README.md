@@ -39,7 +39,7 @@ GoShare shares file and directory by HTTP or FTP protocol
 
 Options:
     -h, --help                  Display this help message
-    --host STRING               Host address to listen (format: 'IP:PORT') (default: 'localhost:3927')
+    --host STRING               Host address to listen (default: 'localhost:3927')
     --path STRING               Path or directory (default: '/home/duruyao/project/goshare')
     --scheme STRING             Scheme name (default: 'http')
     --url-prefix STRING         Custom URL prefix (default: '/')

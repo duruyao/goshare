@@ -20,7 +20,7 @@ GoShare shares file and directory by HTTP or FTP protocol
 
 Options:
     -h, --help                  Display this help message
-    --host STRING               Host address to listen (format: 'IP:PORT') (default: '{{.Host}}')
+    --host STRING               Host address to listen (default: '{{.Host}}')
     --path STRING               Path or directory (default: '{{.Path}}')
     --scheme STRING             Scheme name (default: '{{.Scheme}}')
     --url-prefix STRING         Custom URL prefix (default: '{{.UrlPrefix}}')
@@ -59,14 +59,14 @@ func NewArgument() *Argument {
 }
 
 func (a *Argument) Init() {
-	flag.BoolVar(&(a.arg.WantHelp), "h", false, "")
-	flag.BoolVar(&(a.arg.WantHelp), "help", false, "")
-	flag.StringVar(&(a.arg.Host), "host", DefaultHost, "")
-	flag.StringVar(&(a.arg.Path), "path", DefaultPath, "")
-	flag.StringVar(&(a.arg.Scheme), "scheme", DefaultScheme, "")
-	flag.StringVar(&(a.arg.UrlPrefix), "url-prefix", DefaultUrlPrefix, "")
-	flag.BoolVar(&(a.arg.WantVersion), "v", false, "")
-	flag.BoolVar(&(a.arg.WantVersion), "version", false, "")
+	flag.BoolVar(&(a.arg.WantHelp), "h", false, "Display this help message")
+	flag.BoolVar(&(a.arg.WantHelp), "help", false, "Display this help message")
+	flag.StringVar(&(a.arg.Host), "host", DefaultHost, "Host address to listen")
+	flag.StringVar(&(a.arg.Path), "path", DefaultPath, "Path or directory")
+	flag.StringVar(&(a.arg.Scheme), "scheme", DefaultScheme, "Scheme name")
+	flag.StringVar(&(a.arg.UrlPrefix), "url-prefix", DefaultUrlPrefix, "Custom URL prefix")
+	flag.BoolVar(&(a.arg.WantVersion), "v", false, "Print version information and quit")
+	flag.BoolVar(&(a.arg.WantVersion), "version", false, "Print version information and quit")
 }
 
 func (a *Argument) Parse() {
