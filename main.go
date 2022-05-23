@@ -1,16 +1,45 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
 
-var quit = make(chan struct{})
+var (
+	arg  = NewArgument()
+	quit = make(chan struct{})
+)
 
 func main() {
-	addr, dir, filename, prefix, url, err := ParseArgs()
-	if err != nil {
+	if arg.WantHelp() {
+		fmt.Println(arg.Usage())
 		return
 	}
-	fmt.Printf("GoShare is listening on %s and handling %s/%s ...\n", addr, dir, filename)
-	go GoRunWebApp(addr, dir, prefix)
-	fmt.Printf("Access or share the URL: %s\n", url)
+	if arg.WantVersion() {
+		fmt.Println(VersionSerial())
+		return
+	}
+
+	host := arg.Host()
+	path := AbsPathMust(arg.Path())
+	dir, file := "", ""
+	scheme := arg.Scheme()
+	urlPrefix := FixedUrlPrefix(arg.UrlPrefix())
+
+	info, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		fmt.Println("Error: No such file or directory: " + path)
+		fmt.Println(arg.Usage())
+		return
+	}
+	if info.IsDir() {
+		dir, file = path, ""
+	} else {
+		dir, file = filepath.Dir(path), filepath.Base(path)
+	}
+	fmt.Println(dir)
+	go StartHttpFileService(host, dir, urlPrefix)
+	fmt.Printf("Share files by the URL %s://%s%s%s\n", scheme, host, urlPrefix, file)
 	<-quit
 }
