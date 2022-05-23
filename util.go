@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"log"
 	"os"
 	"path/filepath"
 	"sync"
+	"text/template"
 )
 
 // AbsPathMust returns the absolute path of the given path.
@@ -48,4 +50,39 @@ func CurrentDirMust() string {
 		}
 	})
 	return currentDir
+}
+
+const (
+	App               = `GoShare`
+	AppLink           = `https://github.com/duruyao/goshare`
+	Version           = `1.0.0`
+	ReleaseDate       = `2022-05-23`
+	VersionSerialTmpl = `{{.App}} {{.Version}} ({{.ReleaseDate}})`
+)
+
+// VersionSerial returns version serial.
+func VersionSerial() string {
+	tmpl := template.Must(template.New("version serial tmpl").Parse(VersionSerialTmpl))
+	data := struct {
+		App         string
+		Version     string
+		ReleaseDate string
+	}{
+		App:         App,
+		Version:     Version,
+		ReleaseDate: ReleaseDate,
+	}
+	buf := bytes.Buffer{}
+	if err := tmpl.Execute(&buf, data); err != nil {
+		log.Fatalln(err)
+	}
+	return buf.String()
+}
+
+// FixedUrlPrefix returns the result after fixing the given URL prefix.
+func FixedUrlPrefix(urlPrefix string) string {
+	if "/" == urlPrefix {
+		return "/"
+	}
+	return AbsPathMust("/"+urlPrefix) + "/"
 }
