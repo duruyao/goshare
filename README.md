@@ -33,35 +33,31 @@ chmod +x goshare
 Type `./goshare -h` to show usage.
 
 ```text
-USAGE:
-    goshare [-h] [-v] [--url-prefix <prefix>] [-s {http, ftp}] [-a <ip:port>] [-p <path>]
+Usage: goshare [OPTIONS]
 
-OPTIONS:
-    -h, --help
-                    show usage
-    -v, --version
-                    show version
-    --url-prefix <prefix>
-                    url prefix
-    -s {http, ftp}, --scheme {http, ftp}
-                    scheme name (default: "http")
-    -a <ip:port>, --address <ip:port>
-                    ip address and port to listen (default: "127.0.0.1:8080")
-    -p </path/to/file>,	--path </path/to/file>
-                    path of file or directory to share (default: "$HOME")
+GoShare shares file and directory by HTTP or FTP protocol
 
-EXAMPLES:
-    goshare -a 10.0.13.120:8080 -p /opt/share0/releases/
-    goshare --url-prefix /share/releases/ -a 10.0.13.120:8080 -p /opt/share0/releases/
-    goshare --url-prefix /share/releases/ -a=10.0.13.120:8080 -p=/opt/share0/releases/
-    goshare --url-prefix=/share/releases/ --address 10.0.13.120:8080 --path /opt/share0/releases/
-    goshare --url-prefix=/share/releases/ --address=10.0.13.120:8080 --path=/opt/share0/releases/
+Options:
+    -h, --help                  Display this help message
+    --host STRING               Host address to listen (format: 'IP:PORT') (default: 'localhost:3927')
+    --path STRING               Path or directory (default: '/home/duruyao/project/goshare')
+    --scheme STRING             Scheme name (default: 'http')
+    --url-prefix STRING         Custom URL prefix (default: '/')
+    -v, --version               Print version information and quit
+
+Examples:
+    goshare -host example.io -path /opt/share0/releases/
+    goshare -host localhost:3927 -path /opt/share0/releases/
+    goshare --host localhost:3927 --url-prefix /releases/ --path /opt/share0/releases/
+    goshare --host=localhost:3927 --url-prefix=/releases/ --path=/opt/share0/releases/
+
+See more about GoShare at https://github.com/duruyao/goshare
 ```
 
 Start GoShare.
 
 ```bash
-sudo ./goshare -a 127.0.0.1:8080 -p /opt
+sudo ./goshare --host 127.0.0.1:8080 --path /opt/ --url-prefix /opt/
 ```
 
 Press `Ctrl_Z` to stop the service in foreground.
