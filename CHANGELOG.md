@@ -1,3 +1,17 @@
+# [1.0.0](https://github.com/duruyao/goshare/compare/v0.9.0...v1.0.0) (2022-05-23)
+
+
+### Bug Fixes
+
+* fix error: curl: (18) transfer closed with xxx bytes remaining to read ([de31680](https://github.com/duruyao/goshare/commit/de31680cf5efdf6dadeb8d2ef301188379acb2a9)), closes [#3](https://github.com/duruyao/goshare/issues/3)
+
+
+### Features
+
+* add the function `VersionSerial` and `FixedUrlPrefix` ([93ea456](https://github.com/duruyao/goshare/commit/93ea456fc5f30584da2d8589e8bbe5fe03e0c165))
+
+
+
 # 0.9.0 (2022-05-19)
 
 
