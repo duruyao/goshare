@@ -38,7 +38,6 @@ func main() {
 	} else {
 		dir, file = filepath.Dir(path), filepath.Base(path)
 	}
-	fmt.Println(dir)
 	go StartHttpFileService(host, dir, urlPrefix)
 	fmt.Printf("Share files by the URL %s://%s%s%s\n", scheme, host, urlPrefix, file)
 	<-quit
