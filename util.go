@@ -55,8 +55,8 @@ func CurrentDirMust() string {
 const (
 	App               = `GoShare`
 	Link              = `https://github.com/duruyao/goshare`
-	Version           = `1.0.0`
-	ReleaseDate       = `2022-05-23`
+	Version           = `1.1.0`
+	ReleaseDate       = `2022-05-26`
 	VersionSerialTmpl = `{{.App}} {{.Version}} ({{.ReleaseDate}})`
 	Logo              = `
    _____       _____ _

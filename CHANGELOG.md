@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/duruyao/goshare/compare/v1.0.0...v1.1.0) (2022-05-26)
+
+
+### Features
+
+* show running status with ascii logo ([855eaf7](https://github.com/duruyao/goshare/commit/855eaf7a22db1be8d189d81135e10f12df070118))
+
+
+
 # [1.0.0](https://github.com/duruyao/goshare/compare/v0.9.0...v1.0.0) (2022-05-23)
 
 
