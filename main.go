@@ -29,7 +29,7 @@ func main() {
 
 	info, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		fmt.Println("Error: No such file or directory: " + path)
+		fmt.Println(err.Error())
 		fmt.Println(arg.Usage())
 		return
 	}
@@ -39,6 +39,6 @@ func main() {
 		dir, file = filepath.Dir(path), filepath.Base(path)
 	}
 	go StartHttpFileService(host, dir, urlPrefix)
-	fmt.Printf("Share files by the URL %s://%s%s%s\n", scheme, host, urlPrefix, file)
+	fmt.Println(RunningStatus(dir, host, scheme, urlPrefix, file))
 	<-quit
 }

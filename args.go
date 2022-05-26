@@ -6,6 +6,7 @@ import (
 	"flag"
 	"log"
 	"os"
+	"path/filepath"
 	"sync"
 	"text/template"
 )
@@ -14,7 +15,8 @@ const (
 	DefaultHost      = `localhost:3927`
 	DefaultScheme    = `http`
 	DefaultUrlPrefix = `/`
-	UsageTmpl        = `Usage: {{.Exec}} [OPTIONS]
+	UsageTmpl        = `{{.Logo}}
+Usage: {{.Exec}} [OPTIONS]
 
 GoShare shares file and directory by HTTP or FTP protocol
 
@@ -27,12 +29,12 @@ Options:
     -v, --version               Print version information and quit
 
 Examples:
-    {{.Exec}} -host example.io -path /opt/share0/releases/
-    {{.Exec}} -host {{.Host}} -path /opt/share0/releases/
-    {{.Exec}} --host {{.Host}} --url-prefix /releases/ --path /opt/share0/releases/
-    {{.Exec}} --host={{.Host}} --url-prefix=/releases/ --path=/opt/share0/releases/
+    {{.Exec}} -host example.io -path {{.ExamplePath}}
+    {{.Exec}} -host {{.Host}} -path {{.ExamplePath}}
+    {{.Exec}} --host {{.Host}} --url-prefix /{{.ExampleUrlPrefix}} --path {{.ExamplePath}}
+    {{.Exec}} --host={{.Host}} --url-prefix=/{{.ExampleUrlPrefix}} --path={{.ExamplePath}}
 
-See more about {{.App}} at {{.AppLink}}
+See more about {{.App}} at {{.Link}}
 `
 )
 
@@ -126,21 +128,27 @@ func (a *Argument) Usage() string {
 	a.Parse()
 	tmpl := template.Must(template.New("usage tmpl").Parse(UsageTmpl))
 	data := struct {
-		App       string
-		AppLink   string
-		Exec      string
-		Host      string
-		Path      string
-		Scheme    string
-		UrlPrefix string
+		Logo             string
+		Exec             string
+		Host             string
+		Path             string
+		Scheme           string
+		UrlPrefix        string
+		ExamplePath      string
+		ExampleUrlPrefix string
+		App              string
+		Link             string
 	}{
-		App:       App,
-		AppLink:   AppLink,
-		Exec:      os.Args[0],
-		Host:      DefaultHost,
-		Path:      DefaultPath,
-		Scheme:    DefaultScheme,
-		UrlPrefix: DefaultUrlPrefix,
+		Logo:             Logo,
+		Exec:             os.Args[0],
+		Host:             DefaultHost,
+		Path:             DefaultPath,
+		Scheme:           DefaultScheme,
+		UrlPrefix:        DefaultUrlPrefix,
+		ExamplePath:      CurrentDirMust(),
+		ExampleUrlPrefix: filepath.Base(CurrentDirMust()),
+		App:              App,
+		Link:             Link,
 	}
 	buf := bytes.Buffer{}
 	if err := tmpl.Execute(&buf, data); err != nil {

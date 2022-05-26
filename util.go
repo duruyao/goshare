@@ -54,10 +54,19 @@ func CurrentDirMust() string {
 
 const (
 	App               = `GoShare`
-	AppLink           = `https://github.com/duruyao/goshare`
+	Link              = `https://github.com/duruyao/goshare`
 	Version           = `1.0.0`
 	ReleaseDate       = `2022-05-23`
 	VersionSerialTmpl = `{{.App}} {{.Version}} ({{.ReleaseDate}})`
+	Logo              = `
+   _____       _____ _
+  / ____|     / ____| |
+ | |  __  ___| (___ | |__   __ _ _ __ ___
+ | | |_ |/ _ \\___ \| '_ \ / _' | '__/ _ \
+ | |__| | (_) |___) | | | | (_| | | |  __/
+  \_____|\___/_____/|_| |_|\__,_|_|  \___|
+
+`
 )
 
 // VersionSerial returns version serial.
@@ -85,4 +94,39 @@ func FixedUrlPrefix(urlPrefix string) string {
 		return "/"
 	}
 	return AbsPathMust("/"+urlPrefix) + "/"
+}
+
+const (
+	RunningStatusTmpl = `{{.Logo}}
+{{.App}} is handing directory '{{.Dir}}' and listening on '{{.Host}}'
+
+Access your shared files via this URL {{.Scheme}}://{{.Host}}{{.UrlPrefix}}{{.File}}
+`
+)
+
+// RunningStatus returns server running status.
+func RunningStatus(dir string, host string, scheme string, urlPrefix string, file string) string {
+	tmpl := template.Must(template.New("running status tmpl").Parse(RunningStatusTmpl))
+	data := struct {
+		Logo      string
+		App       string
+		Dir       string
+		Host      string
+		Scheme    string
+		UrlPrefix string
+		File      string
+	}{
+		Logo:      Logo,
+		App:       App,
+		Dir:       dir,
+		Host:      host,
+		Scheme:    scheme,
+		UrlPrefix: urlPrefix,
+		File:      file,
+	}
+	buf := bytes.Buffer{}
+	if err := tmpl.Execute(&buf, data); err != nil {
+		log.Fatalln(err)
+	}
+	return buf.String()
 }
