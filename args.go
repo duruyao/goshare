@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	DefaultHost      = `localhost:3927`
+	DefaultHost      = `0.0.0.0:80`
 	DefaultScheme    = `http`
 	DefaultUrlPrefix = `/`
 	UsageTmpl        = `{{.Logo}}
@@ -43,10 +43,9 @@ Options:
     -v, --version               Print version information and quit
 
 Examples:
-    {{.Exec}} -host example.io -path {{.ExamplePath}}
     {{.Exec}} -host {{.Host}} -path {{.ExamplePath}}
-    {{.Exec}} --host {{.Host}} --url-prefix /{{.ExampleUrlPrefix}} --path {{.ExamplePath}}
-    {{.Exec}} --host={{.Host}} --url-prefix=/{{.ExampleUrlPrefix}} --path={{.ExamplePath}}
+    {{.Exec}} --host {{.Host}} --path {{.ExamplePath}} --url-prefix /{{.ExampleUrlPrefix}}
+    {{.Exec}} --host={{.Host}} --path={{.ExamplePath}} --url-prefix=/{{.ExampleUrlPrefix}}
 
 See more about {{.App}} at {{.Link}}
 `
