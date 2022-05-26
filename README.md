@@ -6,33 +6,24 @@ GoShare provides a simple Web UI and a file transfer service which using HTTP or
 
 ### Download executable
 
-Download the compiled **[release](https://github.com/duruyao/goshare/releases)** for your platform.
-
-### Compile from source
-
-**Prerequisites**: [Golang (version >= 1.17)](https://golang.org/)
-
-```bash
-git clone https://github.com/duruyao/goshare.git goshare && \
-  pushd goshare && \
-  chmod +x build.sh && \
-  ./build.sh && \
-  popd
-```
+Download the compiled **[releases](https://github.com/duruyao/goshare/releases)** for your platform.
 
 ## Usage
 
 The following operation takes the Linux platform as an example.
 
-Add executable permissions to the current file.
-
-```bash
-chmod +x goshare
-```
-
-Type `./goshare -h` to show usage.
+Type `goshare -h` to show help manual.
 
 ```text
+
+   _____       _____ _
+  / ____|     / ____| |
+ | |  __  ___| (___ | |__   __ _ _ __ ___
+ | | |_ |/ _ \\___ \| '_ \ / _' | '__/ _ \
+ | |__| | (_) |___) | | | | (_| | | |  __/
+  \_____|\___/_____/|_| |_|\__,_|_|  \___|
+
+
 Usage: goshare [OPTIONS]
 
 GoShare shares file and directory by HTTP or FTP protocol
@@ -40,56 +31,45 @@ GoShare shares file and directory by HTTP or FTP protocol
 Options:
     -h, --help                  Display this help message
     --host STRING               Host address to listen (default: 'localhost:3927')
-    --path STRING               Path or directory (default: '/home/duruyao/project/goshare')
+    --path STRING               Path or directory (default: '/opt/sdk')
     --scheme STRING             Scheme name (default: 'http')
     --url-prefix STRING         Custom URL prefix (default: '/')
     -v, --version               Print version information and quit
 
 Examples:
-    goshare -host example.io -path /opt/share0/releases/
-    goshare -host localhost:3927 -path /opt/share0/releases/
-    goshare --host localhost:3927 --url-prefix /releases/ --path /opt/share0/releases/
-    goshare --host=localhost:3927 --url-prefix=/releases/ --path=/opt/share0/releases/
+    goshare -host example.io -path /opt/sdk
+    goshare -host localhost:3927 -path /opt/sdk
+    goshare --host localhost:3927 --url-prefix /sdk --path /opt/sdk
+    goshare --host=localhost:3927 --url-prefix=/sdk --path=/opt/sdk
 
 See more about GoShare at https://github.com/duruyao/goshare
+
 ```
 
-Start GoShare.
+Start goshare in the foreground.
 
 ```bash
-sudo ./goshare --host 127.0.0.1:8080 --path /opt/ --url-prefix /opt/
+sudo goshare --host=localhost:3927 --url-prefix=$PWD --path=$PWD
 ```
 
-Press `Ctrl_Z` to stop the service in foreground.
-
-Type `jobs` to show all the jobs' status contains of **JOB_ID**.
-
-Use the `fg` to start and run the service in background.
+Start goshare in the background.
 
 ```bash
-fg %JOB_ID
+sudo goshare --host=localhost:3927 --url-prefix=$PWD --path=$PWD &
 ```
-
-Access [http://127.0.0.1:8080/opt/](http://127.0.0.1:8080/opt/) in your browser.
-
-![img/browser-127.0.0.1.png](img/browser-127.0.0.1.png)
 
 Share the files with your group members by using the **LAN IP** or **WAN IP** instead of `localhost`, `127.0.0.1` or `*`. 
 
-Download a file by `wget`.
+Download a file via `wget` or `curl`.
 
 ```bash
-wget [-P <Destination Directory>] [-O <Destination Path>] <https://ip:port/path/to/file>
+wget <https://ip:port/path/to/file>
+
+curl <https://ip:port/path/to/file> -o <file>
 ```
 
-Download a file by `curl`.
+Download a directory via `wget`.
 
 ```bash
-curl --request GET -sL --url <https://ip:port/path/to/file> --output </path/to/file>
-```
-
-Download a directory by `wget`.
-
-```bash
-wget [-P <Destination Directory>] -r -np -nH -R 'index.html*' <https://ip:port/path/to/dir/>
+wget -r -np -nH -R "index.html*" <https://ip:port/path/to/dir>
 ```
