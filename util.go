@@ -112,7 +112,7 @@ func FixedUrlPrefix(urlPrefix string) string {
 
 const (
 	RunningStatusTmpl = `{{.Logo}}
-{{.App}} is handing directory '{{.Dir}}' and listening on '{{.Host}}'
+{{.App}} is handling directory '{{.Dir}}' and listening on '{{.Host}}'
 
 Access your shared files via this URL {{.Scheme}}://{{.Host}}{{.UrlPrefix}}{{.File}}
 `
