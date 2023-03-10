@@ -58,6 +58,12 @@ Start goshare in the background.
 sudo goshare --host=localhost:3927 --url-prefix=$PWD --path=$PWD &
 ```
 
+Start goshare in the background via **Nohup**.
+
+```bash
+sudo nohup goshare --host=localhost:3927 --url-prefix=$PWD --path=$PWD </dev/null 1>/tmp/goshare.out 2>&1 &
+```
+
 Share the files with your group members by using the **LAN IP** or **WAN IP** instead of `localhost`, `127.0.0.1` or `*`. 
 
 Download a file via `wget` or `curl`.
