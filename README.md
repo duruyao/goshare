@@ -1,6 +1,6 @@
 # GoShare
 
-GoShare provides a simple Web UI and a file transfer service which using HTTP or FTP protocol.
+GoShare provides a simple Web UI and a file transfer service which using HTTP protocol.
 
 ## Install
 
@@ -9,8 +9,6 @@ GoShare provides a simple Web UI and a file transfer service which using HTTP or
 Download the compiled **[releases](https://github.com/duruyao/goshare/releases)** for your platform.
 
 ## Usage
-
-The following operation takes the Linux platform as an example.
 
 Type `goshare -h` to show help manual.
 
@@ -26,21 +24,20 @@ Type `goshare -h` to show help manual.
 
 Usage: goshare [OPTIONS]
 
-GoShare shares file and directory by HTTP or FTP protocol
+GoShare shares files and directories via HTTP protocol
 
 Options:
     -h, --help                  Display this help message
-    --host STRING               Host address to listen (default: 'localhost:3927')
-    --path STRING               Path or directory (default: '/opt/sdk')
+    --host STRING               Host address to listen (default: '0.0.0.0:80')
+    --path STRING               Path or directory (default: '${PWD}')
     --scheme STRING             Scheme name (default: 'http')
     --url-prefix STRING         Custom URL prefix (default: '/')
     -v, --version               Print version information and quit
 
 Examples:
-    goshare -host example.io -path /opt/sdk
-    goshare -host localhost:3927 -path /opt/sdk
-    goshare --host localhost:3927 --url-prefix /sdk --path /opt/sdk
-    goshare --host=localhost:3927 --url-prefix=/sdk --path=/opt/sdk
+    ./goshare -host 0.0.0.0:80 -path ${PWD}
+    ./goshare --host 0.0.0.0:80 --path ${PWD} --url-prefix /
+    ./goshare --host=0.0.0.0:80 --path=${PWD} --url-prefix=/
 
 See more about GoShare at https://github.com/duruyao/goshare
 
@@ -64,9 +61,13 @@ Start goshare in the background via **Nohup**.
 sudo nohup goshare --host=localhost:3927 --url-prefix=$PWD --path=$PWD </dev/null 1>/tmp/goshare.out 2>&1 &
 ```
 
-Share the files with your group members by using the **LAN IP** or **WAN IP** instead of `localhost`, `127.0.0.1` or `*`. 
+Share the files with your group members by using the **LAN IP** or **WAN IP** instead of `localhost`, `127.0.0.1`, `*` or `0.0.0.0`.
 
-Download a file via `wget` or `curl`.
+Browse the file system via a web browser.
+
+![web_page.png](./web_page.png)
+
+Download files via `wget` or `curl`.
 
 ```bash
 wget <https://ip:port/path/to/file>
@@ -74,7 +75,7 @@ wget <https://ip:port/path/to/file>
 curl <https://ip:port/path/to/file> -o <file>
 ```
 
-Download a directory via `wget`.
+Download the directories via `wget`.
 
 ```bash
 wget -r -np -nH -R "index.html*" <https://ip:port/path/to/dir>
