@@ -37,7 +37,6 @@ func main() {
 
 	host := arg.Host()
 	path := AbsPathMust(arg.Path())
-	dir, file := "", ""
 	scheme := arg.Scheme()
 	urlPrefix := FixedUrlPrefix(arg.UrlPrefix())
 
@@ -48,11 +47,11 @@ func main() {
 		return
 	}
 	if info.IsDir() {
-		dir, file = path, ""
+		go HttpStaticFS(host, path, urlPrefix)
+		fmt.Println(RunningStatus(path, host, scheme, urlPrefix, ""))
 	} else {
-		dir, file = filepath.Dir(path), filepath.Base(path)
+		go HttpStaticFile(host, path, urlPrefix)
+		fmt.Println(RunningStatus(filepath.Dir(path), host, scheme, urlPrefix, filepath.Base(path)))
 	}
-	go StartHttpFileService(host, dir, urlPrefix)
-	fmt.Println(RunningStatus(dir, host, scheme, urlPrefix, file))
 	<-quit
 }

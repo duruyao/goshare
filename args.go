@@ -32,7 +32,7 @@ const (
 	UsageTmpl        = `{{.Logo}}
 Usage: {{.Exec}} [OPTIONS]
 
-GoShare shares file and directory by HTTP or FTP protocol
+GoShare shares files and directories via HTTP protocol
 
 Options:
     -h, --help                  Display this help message

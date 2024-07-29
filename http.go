@@ -15,14 +15,68 @@
 package main
 
 import (
+	"io"
 	"log"
+	"mime"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strconv"
 )
 
-// StartHttpFileService starts a file service using HTTP protocol.
-func StartHttpFileService(host string, dir string, prefix string) {
+// HttpStaticFS starts a file service using HTTP protocol.
+func HttpStaticFS(host string, dir string, prefix string) {
 	mux := http.NewServeMux()
 	fileHandler := http.FileServer(http.Dir(dir))
+	mux.Handle(prefix, http.StripPrefix(prefix, fileHandler))
+
+	server := http.Server{
+		Addr:              host,
+		Handler:           mux,
+		TLSConfig:         nil,
+		ReadTimeout:       0,
+		ReadHeaderTimeout: 0,
+		WriteTimeout:      0,
+		IdleTimeout:       0,
+		MaxHeaderBytes:    http.DefaultMaxHeaderBytes,
+		TLSNextProto:      nil,
+		ConnState:         nil,
+		ErrorLog:          log.Default(),
+		BaseContext:       nil,
+		ConnContext:       nil,
+	}
+
+	log.Fatalln(server.ListenAndServe())
+}
+
+// HttpStaticFile handles a static file using HTTP protocol.
+func HttpStaticFile(host string, filename string, prefix string) {
+	mux := http.NewServeMux()
+	fileHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		file, err := os.Open(filename)
+		if err != nil {
+			http.Error(w, "No such file: "+filename, http.StatusNotFound)
+			return
+		}
+		defer func() { _ = file.Close() }()
+		info, err := file.Stat()
+		if err != nil {
+			http.Error(w, "Error getting file info: "+filename, http.StatusInternalServerError)
+			return
+		}
+		data, err := io.ReadAll(file)
+		if err != nil {
+			http.Error(w, "Error reading file: "+filename, http.StatusInternalServerError)
+			return
+		}
+		contentType := mime.TypeByExtension(filepath.Ext(filename))
+		if contentType == "" {
+			contentType = "application/octet-stream"
+		}
+		w.Header().Set("Content-Type", contentType)
+		w.Header().Set("Content-Length", strconv.FormatInt(info.Size(), 10))
+		_, _ = w.Write(data)
+	})
 	mux.Handle(prefix, http.StripPrefix(prefix, fileHandler))
 
 	server := http.Server{
