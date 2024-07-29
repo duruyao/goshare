@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/duruyao/goshare/compare/v1.1.0...v1.2.0) (2024-07-29)
+
+
+### Features
+
+* support for handling single file instead of it's directory ([eee4c08](https://github.com/duruyao/goshare/commit/eee4c088cc5ad3088090cab31a0b6979ecabffcb))
+
+
+
 # [1.1.0](https://github.com/duruyao/goshare/compare/v1.0.0...v1.1.0) (2022-05-26)
 
 
